@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:PatientXamarinApp.ViewModels;assembly=PatientXamarinApp"
+             mc:Ignorable="d"
+             Title="New"
+             x:Class="PatientXamarinApp.Views.AddBloodGroupsPage">
+    <ContentPage.BindingContext>
+
+        <viewModels:AddBloodGroupsViewModel></viewModels:AddBloodGroupsViewModel>
+
+    </ContentPage.BindingContext>
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+
+        <Frame HasShadow="false"
+               Padding="10"
+               BorderColor="LightCoral"
+               Margin="30,30,30,10"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="&#xf043;" 
+                   FontSize="30"
+                   HeightRequest="30"
+                   TextColor="Red"
+                   VerticalOptions="Start" 
+                   HorizontalOptions="StartAndExpand">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                Android="Font Awesome 5 Free-Solid-900.otf#Font" 
+                                iOS="Font Awesome 5 Free" 
+                                WinPhone="Assets/Font Awesome 5 Free-Solid-900.otf#Font" />
+                    </Label.FontFamily>
+                </Label>
+
+                <Label BindingContext="{x:Reference BloodGroupEntry}" 
+                       HorizontalOptions="FillAndExpand" 
+                       IsEnabled="False" 
+                       TextColor="Black"
+                       Text="{Binding Text}"
+                       FontSize="Medium"
+                       HorizontalTextAlignment="Center">
+
+                </Label>
+
+                <StackLayout Margin="10" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Is Visible"
+                           VerticalOptions="Center"
+                        TextColor="#75849D"
+                           >
+
+                    </Label>
+                    <CheckBox IsEnabled="False" 
+                     x:Name="IamVisible"></CheckBox>
+                </StackLayout>
+                <StackLayout  Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Added on"
+                           VerticalOptions="Center" 
+                           x:Name="addedTime"
+                           TextColor="#75849D"
+                           >
+
+                    </Label>
+                    <Label x:Name="AddedTimeStatic" ></Label>
+                </StackLayout>
+
+            </StackLayout>
+
+        </Frame>
+
+
+
+        <StackLayout
+            Grid.Row="1"
+            Padding="20"
+
+            Grid.ColumnSpan="2">
+
+            <Entry Text="{Binding TheSelectedBloodGroup.Name}" 
+                   x:Name="BloodGroupEntry"
+                   Margin="10">
+            </Entry>
+            <!--<CheckBox IsChecked="{Binding TheSelectedBloodGroup.IsVisible}"></CheckBox>-->
+
+
+            <StackLayout Orientation="Horizontal" Spacing="20">
+                <Label Text="Visibility"
+                       FontSize="16" 
+                       VerticalOptions="Center"
+                       TextColor="{StaticResource PrimaryDark}">
+
+                </Label>
+                <Switch IsToggled="{Binding TheSelectedBloodGroup.IsVisible}"
+                x:Name="SwitchVisible"  Toggled="SwitchVisible_OnToggled" >
+
+                </Switch>
+            </StackLayout>
+
+            <Button Style="{StaticResource ButtonAddStyle}"
+                    Text="Add" 
+                    Margin="10"
+                    Padding="15"
+                    Command="{Binding SendBloodGroupsCommand}">
+
+            </Button>
+
+
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>
